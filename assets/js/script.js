@@ -65,8 +65,8 @@ function sliderUpdate() {
 }
 
 function updateCarrousel() {
-		let newMargin = (currentSlide * slider.clientWidth);
-		document.querySelector('.slider-carrousel').style.marginLeft = `-${newMargin}px`;
+	let newMargin = (currentSlide * slider.clientWidth);
+	document.querySelector('.slider-carrousel').style.marginLeft = `-${newMargin}px`;
 }
 
 document.querySelectorAll('.slider-control').forEach(function (sliderItem) {
@@ -85,10 +85,38 @@ document.querySelectorAll('.slider-control').forEach(function (sliderItem) {
 			updateCarrousel();
 		}
 	});
-	
+
 });
 
 // WhatsApp Close
 document.querySelector('#whatsapp .message span').addEventListener('click', function () {
 	document.querySelector('#whatsapp .message').style.display = 'none';
 });
+
+// Scroll Reveal
+ScrollReveal({
+  origin: 'top',
+  distance: '30px',
+  duration: 700
+}).reveal(`
+  #home,
+  #home .stats, 
+  #about,
+  #about .img-box-1,
+  #about .img-box-2,
+  #about .col-b,
+  #features,
+  #features header,
+  #features .card,
+  #testimonials,
+  #testimonials .wrapper,
+  #testimonials .slider-carrousel,
+  #areas,
+  #areas .col-a,
+  #areas .col-b,
+  #contact,
+  #contact .wrapper,
+  footer,
+  footer .col-a,
+  footer .col-b
+`);
