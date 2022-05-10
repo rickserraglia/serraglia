@@ -149,7 +149,7 @@ body.nav-expanded .menu {
 	width: 100vw;
 	min-height: 100vh;
 
-	padding-top: calc(var(--nav-height) + 1rem);
+	padding-top: calc(var(--nav-height) + 6rem);
 	transition: transform .4s;
 	transform: translateY(-50%);
 }
