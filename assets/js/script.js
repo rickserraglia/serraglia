@@ -1,21 +1,24 @@
+////////
 // init
-window.onload = function () {
+window.onload = () => {
 	menuAndBackToTopStatus();
 	activeMenuAtCurrentSection();
-	sliderUpdate();
+	sliderInit();
 };
+//////////
 // scroll
-window.addEventListener('scroll', function () {
+window.addEventListener('scroll', () => {
 	menuAndBackToTopStatus();
 	activeMenuAtCurrentSection();
 });
+//////////////////////////////////////
 // resizing fixer (close mobile menu)
-window.addEventListener('resize', function () {
-	sliderUpdate();
+window.addEventListener('resize', () => {
 	if (innerWidth >= 1025) {
 		document.body.classList.remove('nav-expanded');
 	}
 });
+///////////////////////////////
 // menu and back to top status
 function menuAndBackToTopStatus() {
 	let navScrollClass = document.querySelector('body nav');
@@ -28,8 +31,8 @@ function menuAndBackToTopStatus() {
 	}
 }
 
-
-// menu active status (only on desktop >= 1024px)
+/////////////////////////////////////////////////
+// menu active status (only on screen >= 1024px)
 function activeMenuAtCurrentSection() {
 	if (innerWidth >= 1024) {
 		const scrollLine = scrollY + (innerHeight / 2);
@@ -40,74 +43,72 @@ function activeMenuAtCurrentSection() {
 	}
 };
 
+/////////////////////
 // mobile nav expand
-document.querySelector('.menu-open').addEventListener('click', function () {
+document.querySelector('.menu-open').addEventListener('click', () => {
 	document.body.classList.add('nav-expanded');
 });
-document.querySelector('.menu-close').addEventListener('click', function () {
+document.querySelector('.menu-close').addEventListener('click', () => {
 	document.body.classList.remove('nav-expanded');
 });
 document.querySelectorAll('nav div .menu a.navlink').forEach(menuItem => {
 	menuItem.addEventListener('click', () => document.body.classList.remove('nav-expanded'));
 });
 
-// slider
-const slider = document.querySelector('.slider');
-let currentSlide = 0;
-let sliderQuantity = document.querySelectorAll('.slider-item').length;
+//////////
+// SLIDER
+let currentSlide;
+const newSlider = document.querySelector('.new-slider-carousel');
+const sliderChildrenQuantity = newSlider.children.length - 1;
 
-function sliderUpdate() {
-	document.querySelector('.slider-carrousel').style.width = `calc(${slider.clientWidth}px * ${sliderQuantity})`;
-	document.querySelector('.slider-controls').style.width = `${slider.clientWidth}px`;
-	document.querySelector('.slider-controls').style.height = `${slider.clientHeight}px`;
+function sliderInit() {
 	currentSlide = 0;
-	updateCarrousel();
-}
-
-function updateCarrousel() {
-	let newMargin = (currentSlide * slider.clientWidth);
-	document.querySelector('.slider-carrousel').style.marginLeft = `-${newMargin}px`;
-}
-
-document.querySelectorAll('.slider-control').forEach(function (sliderItem) {
-	sliderItem.addEventListener('click', function () {
-		if (sliderItem.classList.contains('prev')) {
-			currentSlide--;
-			if (currentSlide < 0) {
-				currentSlide = sliderQuantity - 1;
-			}
-			updateCarrousel();
-		} else {
-			currentSlide++;
-			if (currentSlide > (sliderQuantity - 1)) {
-				currentSlide = 0;
-			}
-			updateCarrousel();
-		}
+	newSlider.scrollLeft = 0;
+	document.querySelectorAll('.new-slider-btn').forEach((eachSliderBtn) => {
+		eachSliderBtn.addEventListener('click', () => {
+			sliderControl(eachSliderBtn);
+		});
 	});
+}
 
-});
+function sliderControl(element) {
+	if (currentSlide <= 0 && element.classList.contains('prev')) {
+		newSlider.scrollLeft = newSlider.clientWidth * sliderChildrenQuantity;
+		currentSlide = sliderChildrenQuantity;
+	} else if(currentSlide >= sliderChildrenQuantity && element.classList.contains('next')) {
+		newSlider.scrollLeft = 0;
+		currentSlide = 0;
+	} else if (element.classList.contains('prev')) {
+		newSlider.scrollLeft -= newSlider.clientWidth;
+		currentSlide--;
+	} else {
+		newSlider.scrollLeft += newSlider.clientWidth;
+		currentSlide++;
+	}
+	console.log(currentSlide);
+}
 
+//////////////////
 // WhatsApp Close
-document.querySelector('#whatsapp .message span').addEventListener('click', function () {
+document.querySelector('#whatsapp .message span').addEventListener('click', () => {
 	document.querySelector('#whatsapp .message').style.display = 'none';
 });
 
 // Scroll Reveal
 ScrollReveal({
-  origin: 'top',
-  distance: '30px',
-  duration: 700
+	origin: 'top',
+	distance: '30px',
+	duration: 700
 }).reveal(`
   #home,
-  #home .stats, 
+  #home .stat, 
   #about,
   #about .img-box-1,
   #about .img-box-2,
   #about .col-b,
   #features,
   #features header,
-  #features .card,
+  #features .cards,
   #testimonials,
   #testimonials .wrapper,
   #testimonials .slider-carrousel,
