@@ -4,6 +4,7 @@ window.onload = () => {
 	menuAndBackToTopStatus();
 	activeMenuAtCurrentSection();
 	sliderInit();
+	removeLoader();
 };
 //////////
 // scroll
@@ -18,29 +19,38 @@ window.addEventListener('resize', () => {
 		document.body.classList.remove('nav-expanded');
 	}
 });
+/////////////////
+// remove loader
+function removeLoader() {
+	document.querySelector('body .loader').style.animation = "MenuAppear .8s reverse";
+	setTimeout(() => {
+		document.body.classList.remove('active-loader');
+	}, 800);
+}
 ///////////////////////////////
 // menu and back to top status
 function menuAndBackToTopStatus() {
+	let scrollLine = scrollY + (innerHeight / 2);
 	let navScrollClass = document.querySelector('body nav');
-	if (window.scrollY > 0 && !(navScrollClass.classList.contains('scroll'))) {
+	let homeSection = document.querySelector('section#home');
+	
+	if (scrollLine >= (homeSection.offsetHeight) && !(navScrollClass.classList.contains('scroll'))) {
 		navScrollClass.classList.add('scroll');
 		document.querySelector('#backToTopButton').classList.remove('hidden');
-	} else if (window.scrollY == 0 && navScrollClass.classList.contains('scroll')) {
+	} else if (scrollLine < (homeSection.offsetHeight) && navScrollClass.classList.contains('scroll')) {
 		navScrollClass.classList.remove('scroll');
 		document.querySelector('#backToTopButton').classList.add('hidden');
 	}
 }
 
 /////////////////////////////////////////////////
-// menu active status (only on screen >= 1024px)
+// menu active status
 function activeMenuAtCurrentSection() {
-	if (innerWidth >= 1024) {
-		const scrollLine = scrollY + (innerHeight / 2);
-		document.querySelectorAll('section').forEach(sectionItem => {
-			const menuItem = document.querySelector(`.menu a.navlink[href*="${sectionItem.getAttribute('id')}"]`);
-			((scrollLine >= sectionItem.offsetTop && scrollLine <= (sectionItem.offsetTop + sectionItem.offsetHeight)) ? menuItem.classList.add('active') : menuItem.classList.remove('active'));
-		});
-	}
+	let scrollLine = scrollY + (innerHeight / 2);
+	document.querySelectorAll('section').forEach(sectionItem => {
+		const menuItem = document.querySelector(`.menu a.navlink[href*="${sectionItem.getAttribute('id')}"]`);
+		((scrollLine >= sectionItem.offsetTop && scrollLine <= (sectionItem.offsetTop + sectionItem.offsetHeight)) ? menuItem.classList.add('active') : menuItem.classList.remove('active'));
+	});
 };
 
 /////////////////////
@@ -52,7 +62,10 @@ document.querySelector('.menu-close').addEventListener('click', () => {
 	document.body.classList.remove('nav-expanded');
 });
 document.querySelectorAll('nav div .menu a.navlink').forEach(menuItem => {
-	menuItem.addEventListener('click', () => document.body.classList.remove('nav-expanded'));
+	menuItem.addEventListener('click', () => { 
+		document.body.classList.remove('nav-expanded');
+		menuAndBackToTopStatus();
+	});
 });
 
 //////////
