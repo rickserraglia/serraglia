@@ -21,20 +21,20 @@ Hello World, this was the first entire website made by me 🤓 (with love ❤️
 ## Desktop
 
 <p align="center">
-  <img width="auto" height="100%" src="preview/desktop.png" alt="Desktop print">
+  <img src="preview/desktop.png" alt="Desktop print">
 </p>
 
 ## Tablet
 
 <p align="center">
-  <img width="auto" height="100%" src="preview/tablet.png" alt="Tablet print">
+  <img src="preview/tablet.png" alt="Tablet print">
 </p>
 
 ## Mobile
 
 <p align="center">
-  <img width="auto" height="100%" src="preview/mobile_menu.png" alt="Mobile nav print">
+  <img src="preview/mobile_menu.png" alt="Mobile nav print">
 </p>
 <p align="center">
-  <img width="auto" height="100%" src="preview/mobile.png" alt="Mobile print">
+  <img src="preview/mobile.png" alt="Mobile print">
 </p>
