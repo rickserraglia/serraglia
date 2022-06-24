@@ -17,6 +17,7 @@ Hello World, this was the first entire website made by me 🤓 (with love ❤️
 
 > - [x] [CONSOLE](preview/console_without_maps.png) (0 errors - without Google Maps)
 
+
 ## Desktop
 <p align="center">
   <img src="preview/desktop.png" alt="Desktop print">
